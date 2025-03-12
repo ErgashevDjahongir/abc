@@ -1,0 +1,24 @@
+- name: Nginx o'rnatish va sozlash
+  hosts: mynginx
+  become: yes
+  tasks:
+    - name: Paketlar ro'yxatini yangilash
+      apt:
+        update_cache: yes
+
+    - name: Nginx'ni o'rnatish
+      apt:
+        name: nginx
+        state: present
+
+    - name: Nginx xizmati ishga tushirilganligiga ishonch hosil qilish
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+
+    - name: Asosiy HTML faylni joylash
+      copy:
+        content: "<h1>Salom, Ansible orqali Nginx o'rnatildi!</h1>"
+        dest: /var/www/html/index.html
+
