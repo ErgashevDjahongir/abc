@@ -1,0 +1,18 @@
+name: Hello World
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+jobs:
+  hello-job:
+    runs-on: ubuntu-latest   #      (qaysi OS da run bo'lishi,Bu mashinani github yaratadi. Endi jobning nima qilishini stepsda kiritamiz)
+    steps:
+      - name: Run linux command   # (step larga nom berish web pagedan run qilganimizda qaysi fail qaysi amalga oshganini aniqlashda qulaylik yaratadi)
+        run: echo "The job was automatically triggered by a ${{ github.event_name }} event."
+#(qaysi event orqali amalga oshsa, shu event nomini ni o'zgaruvchi o'qib oladi)
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2            #Marketplacedagi mana shu workflowdan foydalan degani
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
